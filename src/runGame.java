@@ -47,6 +47,7 @@ public class runGame {
 				}
 			}else {
 				System.out.println("Invalid input!!");
+				i--;
 			}
 		}
 		

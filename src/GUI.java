@@ -4,21 +4,29 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 public class GUI extends JFrame {
+	Font font = new Font("¸¼Àº °íµñ", Font.PLAIN, 25);
+	JLabel[] labels = new JLabel[4];
+	
 	GUI() throws InterruptedException {
 		setTitle("Horse Race!");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(450, 450);
 		setLayout(null);
 		
-		JLabel spade = new JLabel("¢¼");
-		spade.setBounds(0, 50, 50, 100);
-		add(spade);
+		labels[0] = new JLabel("¢¼");
+		labels[1] = new JLabel("¡ß");
+		labels[2] = new JLabel("¢¾");
+		labels[3] = new JLabel("¢À");
 		
-		setSize(400, 400);
-		setVisible(true);
+		labels[1].setForeground(Color.red);
+		labels[2].setForeground(Color.red);
 		
-		for (int i = 0; i < 7; i++) {
-			spade.setBounds(0 + 50 * i, 50, 50 + 50 * i, 100);
-			Thread.sleep(1000);
+		for (int i = 0; i < 4; i++) {
+			labels[i].setFont(font);
+			labels[i].setBounds(0, 90 + 60 * i, 30, 30);
+			add(labels[i]);
 		}
+		
+		setVisible(true);
 	}
 }
