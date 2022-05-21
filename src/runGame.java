@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class runGame {
 	
+	static Board game;
 	static int userNum;
 	static int[] users = new int[4];
 
@@ -11,9 +12,9 @@ public class runGame {
 		
 		while(true) {
 			System.out.println("Input number of user(1~4):");
-			s= scan.nextInt();
+			s = scan.nextInt();
 			
-			if(0<s&&s<5) {
+			if(0 < s && s < 5) {
 				userNum = s;
 				break;
 			}else {
@@ -26,13 +27,13 @@ public class runGame {
 		System.out.println("Heart = 3");
 		System.out.println("Club = 4");
 		Boolean flag = true;
-		for(int i =1;i<userNum+1;i++) {
-			System.out.println("Choose user"+i+"'s symbol:");
-			s= scan.nextInt();
+		for(int i = 1; i < userNum + 1; i++) {
+			System.out.println("Choose user " + i + "'s symbol:");
+			s = scan.nextInt();
 			
-			if(0<s&&s<5) {
-				for(int j = 1;j<i+1;j++) {
-					if(users[j]==s) {
+			if(0 < s && s < 5) {
+				for(int j = 1; j < i + 1; j++) {
+					if(users[j] == s) {
 						System.out.println("Symbol has already selected!!");
 						flag = false;
 						i--;
@@ -46,6 +47,15 @@ public class runGame {
 				System.out.println("Invalid input!!");
 			}
 		}
+		
+		game = new Board(userNum);
+		
+		while (!game.isFinish())
+		{
+			game.printBoard();
+			game.moveHorse();
+		}
+		scan.close();
 	}
 
 }

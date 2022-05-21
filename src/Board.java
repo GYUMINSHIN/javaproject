@@ -2,16 +2,16 @@
 public class Board extends CardGenerator{
 	User[] users;
 	Horse[] horses;
-	int numOfUsers;
+	int userNum;
 	
-	Board(int numOfUsers) {
-		this.numOfUsers = numOfUsers;
-		horses = new Horse[numOfUsers];
-		users = new User[numOfUsers];
+	Board(int userNum) {
+		this.userNum = userNum;
+		horses = new Horse[userNum];
+		users = new User[userNum];
 	}
 	
 	boolean isFinish() {
-		for (int i = 0; i < numOfUsers; i++) {
+		for (int i = 0; i < userNum; i++) {
 			if (horses[i].getPosition() >= 7) {
 				return true;
 			}
@@ -19,7 +19,9 @@ public class Board extends CardGenerator{
 		return false;
 	}
 	
-	void moveHorse(int symbol, int number) {
+	void moveHorse() {
+		int symbol = genSymbol();
+		int number = getNumber();
 		int curPosition = horses[symbol].getPosition();
 		
 		switch(number) {
