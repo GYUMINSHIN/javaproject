@@ -1,13 +1,20 @@
 
-public class Board extends CardGenerator{
+public class Board extends GUI{
 	User[] users;
 	Horse[] horses;
+	CardGenerator cg;
 	int userNum;
 	
-	Board(int userNum) {
+	Board(User[] users, int userNum) throws InterruptedException {
+		this.users = users;
 		this.userNum = userNum;
 		horses = new Horse[userNum];
-		users = new User[userNum];
+		cg = new CardGenerator();
+		
+		for (int i = 0; i < userNum; i++)
+		{
+			horses[i] = new Horse(i);
+		}
 	}
 	
 	boolean isFinish() {
@@ -20,35 +27,34 @@ public class Board extends CardGenerator{
 	}
 	
 	void moveHorse() {
-		int symbol = genSymbol();
-		int number = genNumber();
-		int curPosition = horses[symbol].getPosition();
+		Card card = cg.genCard();
+		int curPosition = horses[card.symbol].getPosition();
 		
-		switch(number) {
+		switch(card.number) {
 		case 2:
 		case 4:
 		case 6:
 		case 8:
 		case 10:
-			horses[symbol].setPosition(curPosition + 1);
+			horses[card.symbol].setPosition(curPosition + 1);
 			break;
 		case 3:
 		case 5:
 		case 7:
 		case 9:
-			horses[symbol].setPosition(curPosition - 1);
+			horses[card.symbol].setPosition(curPosition - 1);
 			break;
 		case 11:
-			horses[symbol].setPosition(curPosition + 2);
+			horses[card.symbol].setPosition(curPosition + 2);
 			break;
 		case 12:
-			horses[symbol].setPosition(curPosition - 2);
+			horses[card.symbol].setPosition(curPosition - 2);
 			break;
 		case 13:
-			horses[symbol].setPosition(curPosition + 3);
+			horses[card.symbol].setPosition(curPosition + 3);
 			break;
 		case 1:
-			horses[symbol].addBonus();
+			horses[card.symbol].addBonus();
 			break;
 		}
 	}

@@ -4,9 +4,9 @@ public class runGame {
 	
 	static Board game;
 	static int userNum;
-	static int[] users = new int[4];
+	static User[] users;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Scanner scan = new Scanner(System.in);
 		int s;
 		
@@ -21,19 +21,21 @@ public class runGame {
 				System.out.println("Out of range!!");
 			}
 		}
+		
+		users = new User[userNum];
 		System.out.println("Choose your symbol");
-		System.out.println("Spade = 1");
-		System.out.println("Diamond = 2");
-		System.out.println("Heart = 3");
-		System.out.println("Club = 4");
+		System.out.println("Spade = 0");
+		System.out.println("Diamond = 1");
+		System.out.println("Heart = 2");
+		System.out.println("Club = 3");
 		Boolean flag = true;
-		for(int i = 1; i < userNum + 1; i++) {
-			System.out.println("Choose user " + i + "'s symbol:");
+		for(int i = 0; i < userNum; i++) {
+			System.out.println("Choose user " + (i + 1) + "'s symbol:");
 			s = scan.nextInt();
 			
-			if(0 < s && s < 5) {
-				for(int j = 1; j < i + 1; j++) {
-					if(users[j] == s) {
+			if(0 <= s && s < 4) {
+				for(int j = 0; j < i; j++) {
+					if(users[j].symbol == s) {
 						System.out.println("Symbol has already selected!!");
 						flag = false;
 						i--;
@@ -41,14 +43,14 @@ public class runGame {
 					}
 				}
 				if(flag) {
-					users[i] = s;
+					users[i] = new User(0, s);
 				}
 			}else {
 				System.out.println("Invalid input!!");
 			}
 		}
 		
-		game = new Board(userNum);
+		game = new Board(users, userNum);
 		
 		while (!game.isFinish())
 		{

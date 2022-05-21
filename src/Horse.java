@@ -1,8 +1,14 @@
 
 public class Horse {
-	private int symbol;
-	private int position;
-	private int bonus = 0;
+	int symbol;
+	int position;
+	int bonus;
+	
+	Horse(int symbol) {
+		this.symbol = symbol;
+		this.position = 0;
+		this.bonus = 0;
+	}
 	
 	int getSymbol() {
 		return symbol;
