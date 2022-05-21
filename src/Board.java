@@ -21,7 +21,7 @@ public class Board extends CardGenerator{
 	
 	void moveHorse() {
 		int symbol = genSymbol();
-		int number = getNumber();
+		int number = genNumber();
 		int curPosition = horses[symbol].getPosition();
 		
 		switch(number) {
