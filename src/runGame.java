@@ -55,7 +55,7 @@ public class runGame {
 		
 		while (!game.isFinish())
 		{
-			game.printBoard();
+//			game.printBoard();
 			game.moveHorse();
 		}
 		scan.close();

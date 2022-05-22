@@ -26,7 +26,7 @@ public class Board extends GUI{
 		return false;
 	}
 	
-	void moveHorse() {
+	void moveHorse() throws InterruptedException {
 		Card card = cg.genCard();
 		int curPosition = horses[card.symbol].getPosition();
 		
@@ -57,9 +57,13 @@ public class Board extends GUI{
 			horses[card.symbol].addBonus();
 			break;
 		}
-	}
-	
-	void printBoard() {
 		
+		if (horses[card.symbol].getPosition() < 0) {
+			horses[card.symbol].setPosition(0);
+		}
+		else if (horses[card.symbol].getPosition() > 7) {
+			horses[card.symbol].setPosition(7);
+		}
+		updateScreen(card.symbol, horses[card.symbol].getPosition());
 	}
 }

@@ -29,4 +29,9 @@ public class GUI extends JFrame {
 		
 		setVisible(true);
 	}
+	
+	void updateScreen(int symbol, int position) throws InterruptedException {
+		labels[symbol].setBounds(0 + 55 * position, 90 + 60 * symbol, 30, 30);
+		Thread.sleep(1000);
+	}
 }
