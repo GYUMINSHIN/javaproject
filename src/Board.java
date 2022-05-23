@@ -1,11 +1,13 @@
 
-public class Board extends GUI{
+public class Board{
+	GUI gui;
 	User[] users;
 	Horse[] horses;
 	CardGenerator cg;
 	int userNum;
 	
 	Board(User[] users, int userNum) throws InterruptedException {
+		this.gui = new GUI();
 		this.users = users;
 		this.userNum = userNum;
 		horses = new Horse[userNum];
@@ -28,6 +30,7 @@ public class Board extends GUI{
 	
 	void moveHorse() throws InterruptedException {
 		Card card = cg.genCard();
+		gui.showCard(card);
 		int curPosition = horses[card.symbol].getPosition();
 		
 		switch(card.number) {
@@ -64,6 +67,7 @@ public class Board extends GUI{
 		else if (horses[card.symbol].getPosition() > 7) {
 			horses[card.symbol].setPosition(7);
 		}
-		updateScreen(card.symbol, horses[card.symbol].getPosition());
+		
+		gui.updateScreen(card.symbol, curPosition, horses[card.symbol].getPosition());
 	}
 }
