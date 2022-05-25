@@ -5,7 +5,7 @@ import java.net.*;
 public class PersonalServer extends Thread {
     
     // static ================================================================
-    static DatagramSocket ds;                // UDP를 위한 소켓
+	static DatagramSocket ds;                // UDP를 위한 소켓
     static {
         try {
             ds = new DatagramSocket(56789);
@@ -67,15 +67,8 @@ public class PersonalServer extends Thread {
                 System.out.println("[server] 비정상 종료");
             }
             
-            System.out.println("[server] received : " + received);
-            //command = received.split("#");
-            //Object resp = null;
-            //System.out.println(command[0]);
-            //switch(command[0]) {
-                
-                // 클라이언트의 요청에 따른 처리
-                    
-            //}
+            System.out.println("[server] " + received + " joined");
+            user = new User(received, 0);
         }
     }
     

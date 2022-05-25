@@ -32,6 +32,9 @@ public class Board{
 		Card card = cg.genCard();
 		gui.showCard(card);
 		int curPosition = horses[card.symbol].getPosition();
+		for (int i = 1; i < userNum; i++) {
+			runGame.p[i].sendToString("c#" + card.toString());
+		}
 		
 		switch(card.number) {
 		case 2:

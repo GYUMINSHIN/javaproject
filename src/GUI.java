@@ -32,7 +32,7 @@ public class GUI extends JFrame {
 		scorePanel.setLayout(new GridLayout(1, 4));
 		for (int i = 0; i < userNum; i++) {
 			scoreLabel[i] = new JLabel();
-			scoreLabel[i].setText(Integer.toString(i + 1) + ": " + users[i].score);
+			scoreLabel[i].setText(users[i].name + ": " + users[i].score);
 			scoreLabel[i].setFont(font);
 			scorePanel.add(scoreLabel[i]);
 		}

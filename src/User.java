@@ -6,9 +6,9 @@ public class User {
 	public int symbol;
 	public SocketAddress adress;
 	
-	public User(int score, int symbol) {
+	public User(String name, int score) {
+		this.name = name;
 		this.score = score;
-		this.symbol = symbol;
 	}
 		
 	public void addScore(int value) {

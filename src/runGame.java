@@ -10,7 +10,7 @@ public class runGame {
 	static User[] users;
 	public static PersonalServer[] p; 
 	
-	public void Game() throws InterruptedException {
+	/*public void Game() throws InterruptedException {
 		Scanner scan = new Scanner(System.in);
 		int s;
 		
@@ -63,7 +63,7 @@ public class runGame {
 			game.moveHorse();
 		}
 		scan.close();
-	}
+	}*/
 
 	public static void main(String[] args) throws InterruptedException {
 		Scanner scan = new Scanner(System.in);
@@ -83,6 +83,11 @@ public class runGame {
 		
 		users = new User[userNum];
 		p = new PersonalServer[userNum];
+
+		System.out.println("Choose your Nickname:");
+		scan.nextLine();
+		String n = scan.nextLine();
+		users[0] = new User(n, 0);
 		
 		try {
 			ServerSocket server = new ServerSocket(8040);
@@ -103,6 +108,7 @@ public class runGame {
 		
 		int num = 0;
 		System.out.println("How many game do you want to play?");
+		num = scan.nextInt();
 		
 		System.out.println("Spade = 0");
 		System.out.println("Diamond = 1");
@@ -114,15 +120,24 @@ public class runGame {
 		}
 		System.out.println( users[0].name+" = "+ 0);
 		for(int i = 1;i<userNum;i++) {
-			p[i].sendToString( "s#"+users[i].name +" = "+ i);
+			p[i].sendToString("s#" + users[i].name + " = " + i);
+			p[i].sendToString("n#" + userNum);
 		}
 		
-		game = new Board(users, userNum);
+		for (int i = 0; i < userNum; i++) {
+			for (int j = 1; j < userNum; j++) {
+				p[j].sendToString("u#" + Integer.toString(i) + "#" + users[i].name);
+			}
+		}
 		
-		while (!game.isFinish())
-		{
-//			game.printBoard();
-			game.moveHorse();
+		for (int i = 0; i < num; i++) {
+			game = new Board(users, userNum);
+			
+			while (!game.isFinish())
+			{
+//				game.printBoard();
+				game.moveHorse();
+			}
 		}
 		scan.close();
 	}
