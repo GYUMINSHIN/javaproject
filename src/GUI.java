@@ -59,11 +59,9 @@ public class GUI extends JFrame {
 	}
 	
 	public void updateScreen(int symbol, int curPosition, int movePosition) throws InterruptedException {
-		datas[symbol][movePosition] = datas[symbol][curPosition];
-		if (curPosition != movePosition)
-		{
-			datas[symbol][curPosition] = ' ';
-		}
+		Object obj = datas[symbol][curPosition];
+		datas[symbol][curPosition] = ' ';
+		datas[symbol][movePosition] = obj;
 		table.repaint();
 		Thread.sleep(1000);
 	}
