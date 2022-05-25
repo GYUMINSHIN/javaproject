@@ -80,7 +80,7 @@ public class PersonalServer extends Thread {
     }
     
     // TCP를 이용한 클라이언트에게 데이터전송
-    private void sendToClient(Object resp) {
+    public void sendToString(String resp) {
         try {
             oos.reset();
             oos.writeObject(resp);
@@ -90,5 +90,14 @@ public class PersonalServer extends Thread {
         }
     }
     
+    public void sendToInt(int resp) {
+        try {
+            oos.reset();
+            oos.writeObject(resp);
+            System.out.println(resp);
+        }catch(IOException e) {
+            System.out.println("server write fail.. " + e.toString());
+        }
     
+    }
 }

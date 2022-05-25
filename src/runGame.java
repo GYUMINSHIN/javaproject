@@ -8,7 +8,7 @@ public class runGame {
 	static Board game;
 	static int userNum;
 	static User[] users;
-	public static Thread[] p; 
+	public static PersonalServer[] p; 
 	
 	public void Game() throws InterruptedException {
 		Scanner scan = new Scanner(System.in);
@@ -82,18 +82,12 @@ public class runGame {
 		}
 		
 		users = new User[userNum];
-		p = new Thread[userNum];
-		System.out.println("Choose your symbol");
-		System.out.println("Spade = 0");
-		System.out.println("Diamond = 1");
-		System.out.println("Heart = 2");
-		System.out.println("Club = 3");
-		Boolean flag = true;
+		p = new PersonalServer[userNum];
 		
 		try {
 			ServerSocket server = new ServerSocket(8040);
-			System.out.println("서버시작");
-			for(int i = 0 ; i<userNum ; i++) {
+			System.out.println("Invite User");
+			for(int i = 1 ; i<userNum ; i++) {
 				if(server.isClosed()) {
 					break;
 				}
@@ -106,6 +100,31 @@ public class runGame {
 		}catch(IOException e) {
             System.out.println("[server] network error "  + e.toString()); 
         }
+		
+		int num = 0;
+		System.out.println("How many game do you want to play?");
+		
+		System.out.println("Spade = 0");
+		System.out.println("Diamond = 1");
+		System.out.println("Heart = 2");
+		System.out.println("Club = 3");
+		
+		for(int i = 1;i<userNum;i++) {
+			users[i] = p[i].user;
+		}
+		System.out.println( users[0].name+" = "+ 0);
+		for(int i = 1;i<userNum;i++) {
+			p[i].sendToString( "s#"+users[i].name +" = "+ i);
+		}
+		
+		game = new Board(users, userNum);
+		
+		while (!game.isFinish())
+		{
+//			game.printBoard();
+			game.moveHorse();
+		}
+		scan.close();
 	}
 
 }
