@@ -61,13 +61,6 @@ public class Board{
 			break;
 		}
 		
-		if (horses[card.symbol].getPosition() < 0) {
-			horses[card.symbol].setPosition(0);
-		}
-		else if (horses[card.symbol].getPosition() > 7) {
-			horses[card.symbol].setPosition(7);
-		}
-		
 		gui.updateScreen(card.symbol, curPosition, horses[card.symbol].getPosition());
 	}
 }
