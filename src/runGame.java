@@ -8,6 +8,7 @@ public class runGame {
 	static Board game;
 	static int userNum;
 	static User[] users;
+	public static Thread[] p; 
 	
 	public void Game() throws InterruptedException {
 		Scanner scan = new Scanner(System.in);
@@ -65,13 +66,40 @@ public class runGame {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
+		Scanner scan = new Scanner(System.in);
+		int s;
+		
+		while(true) {
+			System.out.println("Input number of user(1~4):");
+			s = scan.nextInt();
+			
+			if(0 < s && s < 5) {
+				userNum = s;
+				break;
+			}else {
+				System.out.println("Out of range!!");
+			}
+		}
+		
+		users = new User[userNum];
+		p = new Thread[userNum];
+		System.out.println("Choose your symbol");
+		System.out.println("Spade = 0");
+		System.out.println("Diamond = 1");
+		System.out.println("Heart = 2");
+		System.out.println("Club = 3");
+		Boolean flag = true;
+		
 		try {
 			ServerSocket server = new ServerSocket(8040);
 			System.out.println("서버시작");
-			while(!server.isClosed()) {
+			for(int i = 0 ; i<userNum ; i++) {
+				if(server.isClosed()) {
+					break;
+				}
 				Socket socket = server.accept();
-				Thread p = new PersonalServer(socket);
-				
+				p[i] = new PersonalServer(socket);
+				p[i].start();
 				System.out.println("서버 접속");
 			}
 			server.close();

@@ -6,7 +6,6 @@ public class PersonalServer extends Thread {
     
     // static ================================================================
     static DatagramSocket ds;                // UDP를 위한 소켓
-     
     static {
         try {
             ds = new DatagramSocket(56789);
@@ -43,10 +42,10 @@ public class PersonalServer extends Thread {
     
     //=========================================================================================
     
-    private Socket socket;
-    private ObjectOutputStream oos;
-    private ObjectInputStream ois;
-    private User user;        //  현재 계정 객체 저장
+    public Socket socket;
+    public ObjectOutputStream oos;
+    public ObjectInputStream ois;
+    public User user;        //  현재 계정 객체 저장
     
     // 생성자 ================================
     public PersonalServer(Socket socket) {
@@ -69,21 +68,21 @@ public class PersonalServer extends Thread {
             }
             
             System.out.println("[server] received : " + received);
-            command = received.split("#");
-            Object resp = null;
-            System.out.println(command[0]);
-            switch(command[0]) {
+            //command = received.split("#");
+            //Object resp = null;
+            //System.out.println(command[0]);
+            //switch(command[0]) {
                 
                 // 클라이언트의 요청에 따른 처리
                     
-            }
+            //}
         }
     }
     
     // TCP를 이용한 클라이언트에게 데이터전송
     private void sendToClient(Object resp) {
         try {
-            oos.reset();    
+            oos.reset();
             oos.writeObject(resp);
             System.out.println(resp);
         }catch(IOException e) {
