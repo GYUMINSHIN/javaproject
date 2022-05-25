@@ -7,7 +7,7 @@ public class User {
 		this.score = score;
 		this.symbol = symbol;
 	}
-	
+		
 	public void addScore(int value) {
 		this.score += value;
 	}

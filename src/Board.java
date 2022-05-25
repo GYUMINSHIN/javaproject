@@ -7,13 +7,13 @@ public class Board{
 	int userNum;
 	
 	Board(User[] users, int userNum) throws InterruptedException {
-		this.gui = new GUI();
+		this.gui = new GUI(users, userNum);
 		this.users = users;
 		this.userNum = userNum;
-		horses = new Horse[userNum];
+		horses = new Horse[4];
 		cg = new CardGenerator();
 		
-		for (int i = 0; i < userNum; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			horses[i] = new Horse(i);
 		}

@@ -13,47 +13,59 @@ public class GUI extends JFrame {
 					{ '♥', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
 					{ '♣', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
 			};
-	JPanel panel1 = new JPanel();
-	JPanel panel2 = new JPanel();
+	JPanel scorePanel = new JPanel();
+	JLabel[] scoreLabel = new JLabel[4];
+	
+	JPanel boardPanel = new JPanel();
 	JTable table = new JTable(datas, colNames);
 	JScrollPane jscp = new JScrollPane(table);
-	JLabel label = new JLabel("뽑은 카드: ");
-	JLabel cardLabel = new JLabel("테스트");
+
+	JPanel cardPanel = new JPanel();
+	JLabel cardLabel = new JLabel();
 	
-	GUI() {
+	GUI(User[] users, int userNum) {
 		super("Horse Race!");
 		this.setLocation(0, 0);
 		this.setSize(400, 400);
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		
+		scorePanel.setLayout(new GridLayout(1, 4));
+		for (int i = 0; i < userNum; i++) {
+			scoreLabel[i] = new JLabel();
+			scoreLabel[i].setText(Integer.toString(i + 1) + ": " + users[i].score);
+			scoreLabel[i].setFont(font);
+			scorePanel.add(scoreLabel[i]);
+		}
+		
+//		table.getTableHeader().setFont(font);
 		table.setFont(font);
 		table.setRowHeight(50);
-		label.setFont(font);
 		cardLabel.setFont(font);
 		
-		panel1.add(jscp);
-		panel2.add(label);
-		panel2.add(cardLabel);
-		this.add(panel1, BorderLayout.CENTER);
-		this.add(panel2, BorderLayout.PAGE_END);
+		
+		boardPanel.add(jscp);
+		cardPanel.add(cardLabel);
+		
+		this.add(scorePanel, BorderLayout.PAGE_START);
+		this.add(boardPanel, BorderLayout.CENTER);
+		this.add(cardPanel, BorderLayout.PAGE_END);
 		
 		this.pack();
 		this.setVisible(true);
 	}
 	
-	public void showCard(Card card) throws InterruptedException {
-		cardLabel.setText(card.toString());
-		System.out.println(card.toString());
+	public void showCard(Card card) {
+		cardLabel.setText("뽑은 카드: " + card.toString());
 		cardLabel.repaint();
-		Thread.sleep(1000);
 	}
 	
-	public void updateScreen(int symbol, int curPosition, int movePosition) {
+	public void updateScreen(int symbol, int curPosition, int movePosition) throws InterruptedException {
 		datas[symbol][movePosition] = datas[symbol][curPosition];
 		if (curPosition != movePosition)
 		{
 			datas[symbol][curPosition] = ' ';
 		}
 		table.repaint();
+		Thread.sleep(1000);
 	}
 }
