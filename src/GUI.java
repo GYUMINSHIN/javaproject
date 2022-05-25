@@ -42,7 +42,6 @@ public class GUI extends JFrame {
 		table.setRowHeight(50);
 		cardLabel.setFont(font);
 		
-		
 		boardPanel.add(jscp);
 		cardPanel.add(cardLabel);
 		

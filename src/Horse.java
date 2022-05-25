@@ -28,6 +28,13 @@ public class Horse {
 	
 	void setPosition(int position) {
 		this.position = position;
+		
+		if (position < 0) {
+			this.position = 0;
+		}
+		else if (position > 7) {
+			this.position = 7;
+		}
 	}
 	
 	void addBonus() {
