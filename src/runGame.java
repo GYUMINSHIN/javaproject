@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Scanner;
 
 public class runGame {
@@ -5,8 +8,8 @@ public class runGame {
 	static Board game;
 	static int userNum;
 	static User[] users;
-
-	public static void main(String[] args) throws InterruptedException {
+	
+	public void Game() throws InterruptedException {
 		Scanner scan = new Scanner(System.in);
 		int s;
 		
@@ -59,6 +62,22 @@ public class runGame {
 			game.moveHorse();
 		}
 		scan.close();
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+		try {
+			ServerSocket server = new ServerSocket(8040);
+			System.out.println("서버시작");
+			while(!server.isClosed()) {
+				Socket socket = server.accept();
+				Thread p = new PersonalServer(socket);
+				
+				System.out.println("서버 접속");
+			}
+			server.close();
+		}catch(IOException e) {
+            System.out.println("[server] network error "  + e.toString()); 
+        }
 	}
 
 }
