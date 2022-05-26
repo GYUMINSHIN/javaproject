@@ -65,5 +65,8 @@ public class Board{
 		}
 		
 		gui.updateScreen(card.symbol, curPosition, horses[card.symbol].getPosition());
+		for (int i = 1; i < userNum; i++) {
+			runGame.p[i].sendToString("h#" + card.symbol + "#" + curPosition + "#" + horses[card.symbol].getPosition());
+		}
 	}
 }
