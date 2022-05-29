@@ -7,7 +7,7 @@ public class Horse {
 	Horse(int symbol) {
 		this.symbol = symbol;
 		this.position = 0;
-		this.bonus = 0;
+		this.bonus = 1;
 	}
 	
 	int getSymbol() {

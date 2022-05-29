@@ -9,68 +9,13 @@ public class runGame {
 	static int userNum;
 	static User[] users;
 	public static PersonalServer[] p; 
-	
-	/*public void Game() throws InterruptedException {
-		Scanner scan = new Scanner(System.in);
-		int s;
-		
-		while(true) {
-			System.out.println("Input number of user(1~4):");
-			s = scan.nextInt();
-			
-			if(0 < s && s < 5) {
-				userNum = s;
-				break;
-			}else {
-				System.out.println("Out of range!!");
-			}
-		}
-		
-		users = new User[userNum];
-		System.out.println("Choose your symbol");
-		System.out.println("Spade = 0");
-		System.out.println("Diamond = 1");
-		System.out.println("Heart = 2");
-		System.out.println("Club = 3");
-		Boolean flag = true;
-		for(int i = 0; i < userNum; i++) {
-			System.out.println("Choose user " + (i + 1) + "'s symbol:");
-			s = scan.nextInt();
-			
-			if(0 <= s && s < 4) {
-				for(int j = 0; j < i; j++) {
-					if(users[j].symbol == s) {
-						System.out.println("Symbol has already selected!!");
-						flag = false;
-						i--;
-						break;
-					}
-				}
-				if(flag) {
-					users[i] = new User(0, s);
-				}
-			}else {
-				System.out.println("Invalid input!!");
-				i--;
-			}
-		}
-		
-		game = new Board(users, userNum);
-		
-		while (!game.isFinish())
-		{
-//			game.printBoard();
-			game.moveHorse();
-		}
-		scan.close();
-	}*/
 
 	public static void main(String[] args) throws InterruptedException {
 		Scanner scan = new Scanner(System.in);
 		int s;
 		
 		while(true) {
-			System.out.println("Input number of user(1~4):");
+			System.out.print("Input number of user(1~4):");
 			s = scan.nextInt();
 			
 			if(0 < s && s < 5) {
@@ -84,7 +29,7 @@ public class runGame {
 		users = new User[userNum];
 		p = new PersonalServer[userNum];
 
-		System.out.println("Choose your Nickname:");
+		System.out.print("Choose your Nickname:");
 		scan.nextLine();
 		String n = scan.nextLine();
 		users[0] = new User(n, 0);
@@ -127,18 +72,43 @@ public class runGame {
 		for (int i = 0; i < userNum; i++) {
 			for (int j = 1; j < userNum; j++) {
 				p[j].sendToString("u#" + Integer.toString(i) + "#" + users[i].name);
+//				System.out.println("Sent Player #" + i + " to " + p[j].user.name);
 			}
 		}
 		
+		game = new Board(users, userNum);
 		for (int i = 0; i < num; i++) {
-			game = new Board(users, userNum);
-			
 			while (!game.isFinish())
 			{
 //				game.printBoard();
 				game.moveHorse();
 			}
+			
+			game.reset();
 		}
+		
+		for(int i = 1;i<userNum;i++) {
+			p[i].sendToString("e");
+		}
+		
+		int winner = 0;
+		int winnerNum = 0;
+		for (int i = 0; i < userNum; i++) {
+			if (users[i].score > users[winner].score) {
+				winner = i;
+				winnerNum = 1;
+			}
+			else if (users[i].score == users[winner].score) {
+				winnerNum++;
+			}
+		}
+		
+		if (winnerNum > 1) {
+			System.out.println("Draw!");
+		} else {
+			System.out.println(users[winner].name + " wins!");
+		}
+		
 		scan.close();
 	}
 

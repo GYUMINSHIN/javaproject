@@ -17,7 +17,6 @@ public class PersonalServer extends Thread {
     static void sendAlramToAll(String alram, User[] users) {            // 모든 유저에게 UDP전송
         DatagramPacket dp = new DatagramPacket(alram.getBytes(), alram.getBytes().length);
         for(User a : users) {
-            dp.setSocketAddress(a.adress);
             try {
                 System.out.println("server UDP send");
                 
@@ -77,7 +76,7 @@ public class PersonalServer extends Thread {
         try {
             oos.reset();
             oos.writeObject(resp);
-            System.out.println(resp);
+//            System.out.println(resp);
         }catch(IOException e) {
             System.out.println("server write fail.. " + e.toString());
         }
