@@ -3,42 +3,6 @@ import java.io.*;
 import java.net.*;
 
 public class PersonalServer extends Thread {
-    
-    // static ================================================================
-	static DatagramSocket ds;                // UDP를 위한 소켓
-    static {
-        try {
-            ds = new DatagramSocket(56789);
-        }catch(IOException e) {
-            System.out.println("alramSocket create failed.. " + e.toString());
-        }
-    }
-    
-    static void sendAlramToAll(String alram, User[] users) {            // 모든 유저에게 UDP전송
-        DatagramPacket dp = new DatagramPacket(alram.getBytes(), alram.getBytes().length);
-        for(User a : users) {
-            try {
-                System.out.println("server UDP send");
-                
-                ds.send(dp);
-            }catch(IOException e) {
-                System.out.println("[server-Thread] send alarm failed .. " + e.toString());
-            }
-        }
-    }    
-    
-    static void sendAlramToUser(SocketAddress sa, String alram) {        // 특정 유저에게 UDP 전송
-        DatagramPacket dp = new DatagramPacket(alram.getBytes(), alram.getBytes().length);
-        dp.setSocketAddress(sa);
-        try {
-            System.out.println("server UDP send");
-            ds.send(dp);
-        }catch(IOException e) {
-            System.out.println("[server-Thread] send alarm failed .. " + e.toString());
-        }
-        
-    }
-    
     //=========================================================================================
     
     public Socket socket;
@@ -57,7 +21,6 @@ public class PersonalServer extends Thread {
     //========================================
     @Override
     public void run() {
-        String[] command = null;
         while(socket.isConnected()) {
             String received = null;
             try {
